@@ -1,0 +1,25 @@
+{
+    "name": "enricky/cnpj",
+    "description": "Gerador, validador e gerenciador de CNPJ's para PHP",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Enricky\\Cnpj\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Enricky Hipólito",
+            "email": "enricky.hipolito@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "pestphp/pest": "^1.22"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
