@@ -34,7 +34,7 @@ it("should generate valid CNPJ", function () {
 
 //* validate
 
-it("should return false if cpf has not 14 digits", function (string $cnpj) {
+it("should return false if cnpj has not 14 digits", function (string $cnpj) {
   expect(Cnpj::validate($cnpj))->toBeFalse();
 })->with("non_14_digits");
 
@@ -42,7 +42,7 @@ it("should not validate when format is not correct", function (string $cnpj) {
   expect(Cnpj::validate($cnpj))->toBeFalse();
 })->with("valid_but_not_formated_cnpjs");
 
-it("should not validate when cpf is not valid", function (string $cnpj) {
+it("should not validate when cnpj is not valid", function (string $cnpj) {
   expect(Cnpj::validate($cnpj))->toBeFalse();
 })->with("invalid_cnpjs");
 
@@ -52,11 +52,11 @@ it("should validate cnpjs", function (string $cnpj) {
 
 //* format
 
-it("should return null if is not possible to format cpf", function (string $cnpj) {
+it("should return null if is not possible to format cnpj", function (string $cnpj) {
   expect(Cnpj::format($cnpj))->toBeNull();
 })->with("non_14_digits");
 
-it("should format cpf", function () {
+it("should format cnpj", function () {
   expect(Cnpj::format("27303239456634"))->toBe("27.303.239/4566-34");
   expect(Cnpj::format("649.98136054354"))->toBe("64.998.136/0543-54");
   expect(Cnpj::format("65-280-961-0001-43"))->toBe("65.280.961/0001-43");
@@ -71,7 +71,7 @@ it("should format not formated cnpjs and validate it", function (string $cnpj) {
 
 //* cleanUp
 
-it("should clean up cpf", function () {
+it("should clean up cnpj", function () {
   expect(Cnpj::cleanUp("27.103.239/0001-56"))->toBe("27103239000156");
   expect(Cnpj::cleanUp("649.98136054123"))->toBe("64998136054123");
   expect(Cnpj::cleanUp("65-280-961-0001-43"))->toBe("65280961000143");

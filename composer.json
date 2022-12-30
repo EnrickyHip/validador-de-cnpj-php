@@ -1,5 +1,5 @@
 {
-    "name": "enricky/cnpj",
+    "name": "enricky/cnpj-manager",
     "description": "Gerador, validador e gerenciador de CNPJ's para PHP",
     "version": "1.0.0",
     "type": "library",
