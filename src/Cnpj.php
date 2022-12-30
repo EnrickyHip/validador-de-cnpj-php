@@ -67,7 +67,7 @@ class Cnpj
   public static function format(string $cnpj): string | null
   {
     $cleanCnpj = self::cleanUp($cnpj);
-    if (strlen($cleanCnpj) < 14) {
+    if (strlen($cleanCnpj) !== 14) {
       return null;
     }
 
@@ -110,7 +110,7 @@ class Cnpj
   {
     $cnpj = strval(rand(10000000, 99999999)) . "0001";
     $firstDigit = self::createDigit($cnpj);
-    $secondDigit = self::createDigit($cnpj + $firstDigit); // o + concatena o first digit no fim da string
+    $secondDigit = self::createDigit($cnpj . $firstDigit); // o + concatena o first digit no fim da string
     return strval(self::format($cnpj . $firstDigit . $secondDigit));
   }
   

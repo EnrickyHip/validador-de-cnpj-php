@@ -1,11 +1,12 @@
 {
     "name": "enricky/cnpj",
     "description": "Gerador, validador e gerenciador de CNPJ's para PHP",
+    "version": "1.0.0",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Enricky\\Cnpj\\": "src/"
+            "Enricky\\CnpjManager\\": "src/"
         }
     },
     "authors": [
@@ -21,5 +22,8 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
+    },
+    "scripts": {
+        "test": "./vendor/bin/pest"
     }
 }
