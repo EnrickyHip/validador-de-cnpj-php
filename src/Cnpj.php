@@ -15,7 +15,7 @@ class Cnpj
    */
   public static function validateFormat(string $cnpj): bool
   {
-    return boolval(preg_match(Self::REGEX, $cnpj));
+    return (bool)preg_match(Self::REGEX, $cnpj);
   }
 
   /**
@@ -79,7 +79,7 @@ class Cnpj
    * @param string $cnpj Cnpj a ser validado. O CNPJ obrigatoriamente precisa estar no formato: 12.123.123/0001-12 ou
    * 12123123000112. Mesmo que os dígitos sejam válidos, caso a string não esteja nesses formatos, o retorno será falso.
    * @return bool
-  */
+   */
 
   public static function validate(string $cnpj): bool
   {
@@ -108,33 +108,39 @@ class Cnpj
 
   public static function generate(): string
   {
-    $cnpj = strval(rand(10000000, 99999999)) . "0001";
+    $cnpjString = "";
+
+    for ($i = 0; $i < 8; $i++) {
+      $cnpjNumber = rand(0, 9);
+      $cnpjString .= (string)$cnpjNumber;
+    }
+
+    $cnpj = $cnpjString . "0001";
     $firstDigit = self::createDigit($cnpj);
     $secondDigit = self::createDigit($cnpj . $firstDigit); // o + concatena o first digit no fim da string
-    return strval(self::format($cnpj . $firstDigit . $secondDigit));
+    return (string)self::format($cnpj . $firstDigit . $secondDigit);
   }
-  
+
   private static function createDigit(string $parcialCnpj): string
   {
     $cnpjArray = str_split($parcialCnpj);
-    $multiplicator = count($cnpjArray) - 6;
+    $multiplier = count($cnpjArray) - 6;
+    $total = 0;
 
-    $cnpjMultiplicateArray = array_map(function (string $digit) use (&$multiplicator) {
-      $multiplicator--;
-      if ($multiplicator === 1) {
-        $multiplicator = 9;
+    foreach ($cnpjArray as $digit) {
+      $multiplier--;
+
+      if ($multiplier === 1) {
+        $multiplier = 9;
       }
-      return intval($digit) * $multiplicator;
-    }, $cnpjArray);
 
-    $total = array_reduce($cnpjMultiplicateArray, fn(int $count, int $value) => $value + $count, 0);
-
-    if ($total % 11 < 2) {
-      $digit = 0;
-    } else {
-      $digit = 11 - ($total % 11);
+      $total += (int)$digit * $multiplier;
     }
 
-    return strval($digit);
+    $digit = 11 - ($total % 11);
+    if ($digit > 9) {
+      $digit = 0;
+    }
+    return (string)$digit;
   }
 }
